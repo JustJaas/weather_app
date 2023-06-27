@@ -1,9 +1,10 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/ui/blocs/weather/weather_bloc.dart';
-import 'package:weather_app/ui/pages/map/loading_page.dart';
-import 'package:weather_app/data/helpers/first_capital_helper.dart';
+import 'package:weather_app/ui/pages/home/additional_info.dart';
+import 'package:weather_app/ui/pages/home/extended_forecast.dart';
+import 'package:weather_app/ui/pages/home/main_info.dart';
+import 'package:weather_app/ui/pages/map/map_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,104 +27,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
+        actions: [
           TextButton(
+            key: const Key("pronostico_extendido"),
             onPressed: () {
               weatherBloc.add(const ShowExtraData());
             },
-            child: const Text(
-              key: Key("pronostico_extendido"),
-              'Pronóstico\nextendido',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
+            child: const Icon(
+              Icons.add_chart_outlined,
+              color: Colors.white,
             ),
           ),
         ],
-        title: const Text("Clima"),
+        title: const Text(
+          "Pronóstico Meteorológico",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
+            final extraData = state.weatherResponse.main!;
             return state.weatherResponse.weather!.isEmpty
                 ? const SizedBox()
                 : Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${Country.tryParse(state.weatherResponse.sys!.country!)?.name} - ${state.weatherResponse.name}",
-                              style: const TextStyle(fontSize: 24),
-                            ),
-                            Text(
-                              datesToString(now),
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            Image.network(
-                              "https://openweathermap.org/img/wn/${state.weatherResponse.weather![0].icon}@4x.png",
-                              height: 150,
-                              width: 150,
-                            ),
-                            Text(
-                              '${state.weatherResponse.main!.temp}°C',
-                              style: const TextStyle(fontSize: 48),
-                            ),
-                            Text(
-                              capitalizeFirstLetter(state
-                                  .weatherResponse.weather![0].description!),
-                              style: const TextStyle(fontSize: 24),
-                            ),
-                          ],
-                        ),
-                      ),
+                      MainInfo(weatherResponse: state.weatherResponse),
                       const SizedBox(height: 5),
+                      AdditionalInfo(
+                        feelsLike: extraData.feelsLike.toString(),
+                        humidity: extraData.humidity.toString(),
+                        pressure: extraData.pressure.toString(),
+                      ),
+                      const SizedBox(height: 15),
                       state.showExtraData
-                          ? Expanded(
-                              child: ListView.builder(
-                                itemCount:
-                                    state.weatherDaysResponse.list!.length,
-                                itemBuilder: (context, index) {
-                                  final weatherDaysData =
-                                      state.weatherDaysResponse.list![index];
-                                  DateTime date =
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          weatherDaysData.dt! * 1000);
-                                  return ListTile(
-                                    leading: Image.network(
-                                      "https://openweathermap.org/img/w/${weatherDaysData.weather![0].icon}.png",
-                                      width: 40,
-                                      height: 40,
-                                    ),
-                                    title: Text(datesToString(date)),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            'Máx: ${weatherDaysData.main!.tempMax}°C'),
-                                        Text(
-                                            'Min: ${weatherDaysData.main!.tempMin}°C'),
-                                        Text(
-                                          key: const Key("descripcion"),
-                                          capitalizeFirstLetter(weatherDaysData
-                                              .weather![0].description!),
-                                        ),
-                                        Text(state
-                                            .weatherDaysResponse.city!.name!),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                          ? ExtendedForecast(
+                              weatherForecast: state.weatherDaysResponse,
                             )
                           : const SizedBox(),
                     ],
@@ -131,10 +75,12 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: CircleAvatar(
         backgroundColor: const Color.fromRGBO(103, 58, 183, 1),
         maxRadius: 25,
         child: IconButton(
+          key: const Key('gps_button'),
           icon: const Icon(
             Icons.my_location_outlined,
             color: Colors.white,
@@ -142,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoadingPage()),
+              MaterialPageRoute(builder: (context) => const MapPage()),
             );
           },
         ),

@@ -1,38 +1,44 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter_driver/flutter_driver.dart';
-// import 'package:flutter_test/flutter_test.dart';
 import 'package:test/test.dart';
-// import 'package:mockito/mockito.dart';
-// import 'package:dio/dio.dart';
-// import 'package:weather_app/data/services/weather_service.dart';
-// import 'package:weather_app/domain/models/weather_days_response_model.dart';
-import 'dart:developer' as developer;
 
 void main() {
   group('Weather Service', () {
-    const urlWeather = 'https://api.openweathermap.org/data/2.5';
+    late final FlutterDriver driver;
 
     final extendedButton = find.byValueKey("pronostico_extendido");
-    final resultText = find.byValueKey("descripcion");
-
-    late final FlutterDriver driver;
+    final containerInfo = find.byValueKey("container");
+    final confirmButton = find.byValueKey('confirm_button');
+    final gpsButton = find.byValueKey('gps_button');
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
 
-    // tearDownAll(() {
-    // driver.close();
-    // });
+    tearDownAll(() async {
+      if (driver != null) {
+        driver.close();
+      }
+    });
 
-    test('Obtener pronóstico extendido', () async {
-      developer.log("titleText.runtimeType");
-
+    test('Get weather info', () async {
       await driver.tap(extendedButton);
-      final titleText = await driver.getText(resultText);
-      developer.log(titleText.runtimeType.toString());
+      final result = await driver.getWidgetDiagnostics(containerInfo);
+      expect(result, isNotEmpty);
+    });
 
-      expect(titleText, isNotEmpty);
+    test('Access to map', () async {
+      await driver.tap(gpsButton);
+      await Future.delayed(const Duration(seconds: 2));
+
+      await driver.scroll(
+        find.byType('GoogleMap'),
+        0,
+        -100,
+        const Duration(milliseconds: 500),
+      );
+      await driver.tap(confirmButton);
+      final result = await driver.getWidgetDiagnostics(containerInfo);
+      expect(result, isNotEmpty);
     });
   });
 }

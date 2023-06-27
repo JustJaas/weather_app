@@ -34,6 +34,7 @@ class ShowMarker extends StatelessWidget {
             bottom: 70,
             left: 40,
             child: MaterialButton(
+              key: const Key("confirm_button"),
               minWidth: size.width - 90,
               color: Colors.deepPurpleAccent,
               elevation: 0,

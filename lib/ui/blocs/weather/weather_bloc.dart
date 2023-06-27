@@ -10,13 +10,14 @@ part 'weather_state.dart';
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc()
       : super(WeatherState(
-            weatherResponse: WeatherResponse.fromJson({}),
-            weatherDaysResponse: WeatherDaysResponse.fromJson({}),
-            lat: "-12.0488",
-            lng: "-77.0495",
-            tempLat: "-12.0488",
-            tempLng: "-77.0495",
-            showExtraData: false)) {
+          weatherResponse: WeatherResponse.fromJson({}),
+          weatherDaysResponse: WeatherDaysResponse.fromJson({}),
+          lat: "-12.0488",
+          lng: "-77.0495",
+          tempLat: "-12.0488",
+          tempLng: "-77.0495",
+          showExtraData: false,
+        )) {
     on<GetWeather>((event, emit) async {
       final weatherData = await WeatherService().getData(event.lat, event.lng);
       getExtraData();

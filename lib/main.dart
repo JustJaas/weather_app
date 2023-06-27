@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/ui/blocs/gps/gps_bloc.dart';
 import 'package:weather_app/ui/blocs/weather/weather_bloc.dart';
-import 'package:weather_app/ui/pages/home_page.dart';
+import 'package:weather_app/ui/pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +15,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => WeatherBloc()),
-        BlocProvider(create: (context) => GpsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: false,
           scaffoldBackgroundColor: Colors.deepPurple[100],
         ),
-        home: const HomePage(),
+        home: const SplashPage(),
       ),
     );
   }
