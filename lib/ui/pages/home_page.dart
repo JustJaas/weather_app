@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10.0),
         child: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
-            final extraData = state.weatherResponse.main!;
             return state.weatherResponse.weather!.isEmpty
                 ? const SizedBox()
                 : Column(
@@ -60,9 +59,12 @@ class _HomePageState extends State<HomePage> {
                       MainInfo(weatherResponse: state.weatherResponse),
                       const SizedBox(height: 5),
                       AdditionalInfo(
-                        feelsLike: extraData.feelsLike.toString(),
-                        humidity: extraData.humidity.toString(),
-                        pressure: extraData.pressure.toString(),
+                        feelsLike:
+                            state.weatherResponse.main!.feelsLike.toString(),
+                        humidity:
+                            state.weatherResponse.main!.humidity.toString(),
+                        pressure:
+                            state.weatherResponse.main!.pressure.toString(),
                       ),
                       const SizedBox(height: 15),
                       state.showExtraData
