@@ -5,8 +5,8 @@ Aplicación en Flutter que brinda información meteorológica.
 ## Capturas de Pantalla
 
 <div style="display: flex; flex-direction: row;">
-  <img src="assets/img/screenshot_1.png" alt="Captura de pantalla 1" style="width: 300px; margin-right: 10px;">
-  <img src="assets/img/screenshot_2.png" alt="Captura de pantalla 2" style="width: 300px;">
+  <img src="assets/imgs/screenshot_1.png" alt="Captura de pantalla 1" style="width: 300px; margin-right: 10px;">
+  <img src="assets/imgs/screenshot_2.png" alt="Captura de pantalla 2" style="width: 300px;">
 </div>
 
 ## Descripción
