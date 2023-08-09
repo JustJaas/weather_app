@@ -12,10 +12,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       : super(WeatherState(
           weatherResponse: WeatherResponse.fromJson({}),
           weatherDaysResponse: WeatherDaysResponse.fromJson({}),
-          lat: "-12.0488",
-          lng: "-77.0495",
-          tempLat: "-12.0488",
-          tempLng: "-77.0495",
+          lat: "40.4165000",
+          lng: "-3.7025600",
+          tempLat: "40.4165000",
+          tempLng: "-3.7025600",
           showExtraData: false,
         )) {
     on<GetWeather>((event, emit) async {

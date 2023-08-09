@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/ui/blocs/weather/weather_bloc.dart';
@@ -53,26 +54,30 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             return state.weatherResponse.weather!.isEmpty
                 ? const SizedBox()
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      MainInfo(weatherResponse: state.weatherResponse),
-                      const SizedBox(height: 5),
-                      AdditionalInfo(
-                        feelsLike:
-                            state.weatherResponse.main!.feelsLike.toString(),
-                        humidity:
-                            state.weatherResponse.main!.humidity.toString(),
-                        pressure:
-                            state.weatherResponse.main!.pressure.toString(),
-                      ),
-                      const SizedBox(height: 15),
-                      state.showExtraData
-                          ? ExtendedForecast(
-                              weatherForecast: state.weatherDaysResponse,
-                            )
-                          : const SizedBox(),
-                    ],
+                : FadeInDown(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MainInfo(weatherResponse: state.weatherResponse),
+                        const SizedBox(height: 5),
+                        AdditionalInfo(
+                          feelsLike:
+                              state.weatherResponse.main!.feelsLike.toString(),
+                          humidity:
+                              state.weatherResponse.main!.humidity.toString(),
+                          pressure:
+                              state.weatherResponse.main!.pressure.toString(),
+                        ),
+                        const SizedBox(height: 15),
+                        state.showExtraData
+                            ? FadeInUp(
+                                child: ExtendedForecast(
+                                  weatherForecast: state.weatherDaysResponse,
+                                ),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   );
           },
         ),

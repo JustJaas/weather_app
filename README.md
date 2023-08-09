@@ -1,5 +1,25 @@
 # Pronóstico Meteorológico
 
-Un nuevo proyecto de Flutter que muestra la previsión meteorológica utilizando la API de OpenWeatherMap.
+Aplicación en Flutter que brinda información meteorológica.
 
-La aplicación tiene dos botones, una en la parte superior derecha que sirve para mostrar el pronostico del clima de las siguientes horas, y el otro botón que esta en la parte inferior derecha, el cual te lleva a otra vista donde podrás seleccionar una ubicación para poder actualizar el pronostico del clima de acuerdo a la ubicación seleccionada.
+## Capturas de Pantalla
+
+<div style="display: flex; flex-direction: row;">
+  <img src="assets/img/screenshot_1.png" alt="Captura de pantalla 1" style="width: 300px; margin-right: 10px;">
+  <img src="assets/img/screenshot_2.png" alt="Captura de pantalla 2" style="width: 300px;">
+</div>
+
+## Descripción
+
+Esta aplicación usa el API del siguiente link `https://openweathermap.org/api`, la cual tiene como objetivo principal obtener y desplegar información sobre el clima seleccionando la ubicación deseada.
+
+## Instalación
+
+1. Clona este repositorio: `git clone https://github.com/JustJaas/weather_app.git`
+2. Navega a la carpeta del proyecto: `cd weather_app`
+3. Instala las dependencias: `flutter pub get`
+
+## Uso
+
+1. Ejecuta la app en un emulador o dispositivo: `flutter run`
+2. Interactúa con la app y explora sus funcionalidades.

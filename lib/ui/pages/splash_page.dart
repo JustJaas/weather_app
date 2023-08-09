@@ -41,6 +41,7 @@ class _SplashPageState extends State<SplashPage> {
               "Cargando . . .",
               style: TextStyle(
                 color: Colors.deepPurple,
+                fontSize: 20,
               ),
             )
           ],

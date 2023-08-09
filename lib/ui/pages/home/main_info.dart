@@ -22,7 +22,7 @@ class MainInfo extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               color: Colors.deepPurple,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w800,
             ),
           ),
           Text(
