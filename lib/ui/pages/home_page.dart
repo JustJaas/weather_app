@@ -58,6 +58,13 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            throw Exception('This is test exception');
+                          },
+                          child: const Text('Verify Sentry Setup'),
+                        ),
+                        const SizedBox(height: 15),
                         MainInfo(weatherResponse: state.weatherResponse),
                         const SizedBox(height: 5),
                         AdditionalInfo(

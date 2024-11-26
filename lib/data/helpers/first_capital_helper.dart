@@ -25,7 +25,7 @@ String datesToString(dateTime) {
   return '$daySpanish ${dateTime.day}\n$hour:$minute $amPm';
 }
 
-String datesFullToString(dateTime) {
+String datesFullToString(DateTime dateTime) {
   final dayFormat = DateFormat('EEEE');
   final monthFormat = DateFormat('MMMM');
   final yearFormat = DateFormat('y');
@@ -71,6 +71,7 @@ monthSpanishConverter(String month) {
     "August": "Agosto",
     "September": "Setiembre",
     "Octuber": "Octubre",
+    "November": "November",
     "December": "Diciembre",
   };
   return monthMap[month];
